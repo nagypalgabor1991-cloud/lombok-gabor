@@ -14,7 +14,7 @@ public class FirstLoopHomework {
             for (int i = 0; i < 10; i++) {
                 System.out.println(text);
             }
-            scanner.close();
         }
+        scanner.close();
     }
 }
