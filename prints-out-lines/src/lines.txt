@@ -1,0 +1,6 @@
+cat
+hello
+Java
+programming
+hi
+world
