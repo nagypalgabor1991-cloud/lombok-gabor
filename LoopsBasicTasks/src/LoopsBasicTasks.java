@@ -22,8 +22,8 @@ public class LoopsBasicTasks {
         //Writes the first 10 powers of two to the console (starting with 2^0 = 1).
         int powersOfTwo = 1;
         for (int i = 0; i < 10; i++) {
-            powersOfTwo *= 2;
             System.out.println(powersOfTwo);
+            powersOfTwo *= 2;
         }
         //Writes all the numbers to the console from 565.5 to 678.5 with an increment of 0.25.
         for (double i = 565.5; i <= 678.5; i += 0.25) {
@@ -41,20 +41,25 @@ public class LoopsBasicTasks {
         System.out.println(number);
         //Calculates the average of the first 20 natural numbers and writes it to the console.
         double naturalNumber = 0;
-        for (int i = 1; i <= 20; i++) {
+        int firstXNumber = 20;
+        for (int i = 1; i <= firstXNumber; i++) {
             naturalNumber += i;
         }
-        double result = naturalNumber / 20;
+        double result = naturalNumber / firstXNumber;
         System.out.println(result);
         //Writes all the square numbers to the console between 1 and 1000.
-        for (int i = 1; i <= 31; i++) {
-            int squareNumbers = i * i;
-            System.out.println(squareNumbers);
+        for (int i = 1; i <= 1000; i++) {
+            double squareNumbers = Math.sqrt(i);
+            if (squareNumbers % 1 == 0) {
+                System.out.println(squareNumbers * squareNumbers);
+            }
         }
         //Writes all the cube numbers to the console between 1 and 1250.
-        for (int i = 1; i <= 10; i++) {
-            int cubeNumbers = i * i * i;
-            System.out.println(cubeNumbers);
+        for (int i = 1; i <= 1250; i++) {
+            double cubeNumbers = Math.cbrt(i);
+            if (cubeNumbers % 1 == 0) {
+                System.out.println(cubeNumbers * cubeNumbers * cubeNumbers);
+            }
         }
         //Asks a number from the user and determines if that number is prime
         System.out.println("Please enter a number:");
