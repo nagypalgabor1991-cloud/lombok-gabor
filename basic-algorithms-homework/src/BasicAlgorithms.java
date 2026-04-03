@@ -26,7 +26,7 @@ public class BasicAlgorithms {
         System.out.println("Number of elements greater than 100: " + greaterThan100);
         int betweenMinus50And78 = 0;
         for (int i = 0; i < array.length; i++) {
-            if ((array[i] >= -50) && (array[i] <= 78)) {
+            if (array[i] >= -50 && array[i] <= 78) {
                 betweenMinus50And78 += 1;
             }
         }
@@ -56,6 +56,7 @@ public class BasicAlgorithms {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == 100) {
                 has100 = true;
+                break;
             }
         }
         System.out.println("100 appears: " + has100);
@@ -63,6 +64,7 @@ public class BasicAlgorithms {
         for (int i = 0; i < array.length; i++) {
             if (array[i] > 100) {
                 hasElementOver100 = true;
+                break;
             }
         }
         System.out.println("Number(s) greater than 100 can be found: " + hasElementOver100);
@@ -70,6 +72,7 @@ public class BasicAlgorithms {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == 7) {
                 index = i;
+                break;
             }
         }
         System.out.println("Index of the first occurrence of 7: " + index);
@@ -85,12 +88,8 @@ public class BasicAlgorithms {
         System.out.println("Sum of the elements: " + product);
         int result = 0;
         for (int i = 1; i < array.length + 1; i++) {
-            if (i % 4 == 0) {
-                result -= array[i - 1];
-            } else {
-                result += array[i - 1];
+            result = (i % 4 == 0) ? result - array[i - 1] : result + array[i - 1];
             }
-        }
         System.out.println("Result of n1+n2+n3-n4+n5+n6+n7-n8... :" + result);
     }
 }
