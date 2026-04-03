@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class MethodsLessonPractice {
@@ -96,7 +95,7 @@ public class MethodsLessonPractice {
     }
 
     //    13. Gets in a number and writes its multiplication table to the console
-    public static void multiplicationTable(int number) {
+    public static void printMultiplicationTable(int number) {
         int[][] multiplicationTable = new int[number][number];
         for (int i = 0; i < number; i++) {
             for (int j = 0; j < number; j++) {
@@ -190,7 +189,7 @@ public class MethodsLessonPractice {
     }
 
     //    22. Gets in a number and returns how many digits it has
-    public static int numberOfDigits(int number) {
+    public static int getNumberOfDigits(int number) {
         String n = String.valueOf(number);
         return n.length();
     }
@@ -202,12 +201,7 @@ public class MethodsLessonPractice {
 
     //    24. Gets in a number and returns its absolute value without using built-in methods
     public static int absolute(int number) {
-        int result = number;
-        if (number < 0) {
-            result = number * -1;
-            return result;
-        }
-        return result;
+        return (number < 0) ? -number : number;
     }
 
     //    25. Gets in an array and returns the sum of its elements
@@ -220,8 +214,8 @@ public class MethodsLessonPractice {
     }
 
     //    26. Gets in an array and returns the average of its elements
-    public static int average(int[] array) {
-        int result = 0;
+    public static double average(int[] array) {
+        double result = 0;
         for (int i = 0; i < array.length; i++) {
             result += array[i];
         }
@@ -252,22 +246,22 @@ public class MethodsLessonPractice {
     }
 
     //    29. Gets in an array and returns how many even numbers it contains
-    public static int evenNumbers(int[] array) {
+    public static int countEvenNumbers(int[] array) {
         int result = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] % 2 == 0) {
-                result += 1;
+                result++;
             }
         }
         return result;
     }
 
     //    30. Gets in an array and returns how many numbers are greater than 10
-    public static int greaterThan10(int[] array) {
+    public static int countNumbersGreaterThan10(int[] array) {
         int result = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] > 10) {
-                result += 1;
+                result++;
             }
         }
         return result;
@@ -294,7 +288,7 @@ public class MethodsLessonPractice {
     }
 
     //    33. Gets in an array and a number and returns the index of that number (or -1 if not found)
-    public static int index(int[] array, int number) {
+    public static int getIndexOfNumber(int[] array, int number) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == number) {
                 return i;
@@ -308,7 +302,7 @@ public class MethodsLessonPractice {
         int result = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] == number) {
-                result += 1;
+                result++;
             }
         }
         return result;
@@ -319,7 +313,7 @@ public class MethodsLessonPractice {
         int evens = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] % 2 == 0) {
-                evens += 1;
+                evens++;
             }
         }
         int[] result = new int[evens];
@@ -327,7 +321,7 @@ public class MethodsLessonPractice {
         for (int i = 0; i < array.length; i++) {
             if (array[i] % 2 == 0) {
                 result[j] = array[i];
-                j += 1;
+                j++;
             }
         }
         return result;
@@ -386,7 +380,7 @@ public class MethodsLessonPractice {
         for (int i = 0; i < array.length - 1; i++) {
             for (int j = 1 + i; j < array.length; j++) {
                 if (array[i] == array[j]) {
-                    duplications += 1;
+                    duplications++;
                 }
             }
         }
@@ -409,7 +403,7 @@ public class MethodsLessonPractice {
         int i = 0;
         text = text + "%";
         while (text.charAt(i) != '%') {
-            i += 1;
+            i++;
         }
         return i;
     }
@@ -420,7 +414,7 @@ public class MethodsLessonPractice {
         for (int i = 0; i < text.length(); i++) {
             if (text.charAt(i) == 'a' || text.charAt(i) == 'e' || text.charAt(i) == 'i' || text.charAt(i) == 'o' || text.charAt(i) == 'u' ||
                     text.charAt(i) == 'A' || text.charAt(i) == 'E' || text.charAt(i) == 'I' || text.charAt(i) == 'O' || text.charAt(i) == 'U') {
-                result += 1;
+                result++;
             }
         }
         return result;
@@ -479,7 +473,7 @@ public class MethodsLessonPractice {
         int result = 0;
         for (int i = 0; i < text.length(); i++) {
             if (array[i] == character) {
-                result += 1;
+                result++;
             }
         }
         return result;
@@ -494,15 +488,15 @@ public class MethodsLessonPractice {
         int digits = 0;
         for (int i = 0; i < text.length(); i++) {
             if (text.charAt(i) >= 48 && text.charAt(i) <= 57) {
-                digits += 1;
+                digits++;
             }
         }
         char[] result = new char[text.length() - digits];
         int j = 0;
         for (int i = 0; i < text.length(); i++) {
-            if ((text.charAt(i) > 57) || (text.charAt(i) < 48)) {
+            if (text.charAt(i) > 57 || text.charAt(i) < 48) {
                 result[j] = text.charAt(i);
-                j += 1;
+                j++;
             }
         }
         return new String(result);
@@ -545,7 +539,7 @@ public class MethodsLessonPractice {
 //        print100to1();
 //        printEvens1to100();
 //        printOdds1to100();
-//        multiplicationTable(5);
+//        printMultiplicationTable(5);
 //        printNumbersDivisibleBy3and5();
 //        System.out.println(sum(4));
 //        System.out.println(factorial(4));
@@ -554,22 +548,22 @@ public class MethodsLessonPractice {
 //        System.out.println(sumOfDigits(121));
 //        System.out.println(productOfDigits(122));
 //        System.out.println(reverseNumber(123456));
-//        System.out.println(numberOfDigits(12345));
+//        System.out.println(getNumberOfDigits(12345));
 //        System.out.println(isDivisibleBy2And7(28));
 //        System.out.println(absolute(-11));
 //        System.out.println(sum(new int[]{12,1,3}));
-//        System.out.println(average(new int[]{1,2,3,4,5}));
+//        System.out.println(average(new int[]{1,2,3,4,}));
 //        System.out.println(max(new int[]{1,10,2,3,11}));
 //        System.out.println(min(new int[]{1,10,2,3,11}));
-//        System.out.println(evenNumbers(new int[]{1,10,2,3,12}));
-//        System.out.println(greaterThan10(new int[]{1,10,2,3,12}));
+//        System.out.println(countEvenNumbers(new int[]{1,10,2,3,12}));
+//        System.out.println(countNumbersGreaterThan10(new int[]{1,10,2,3,12}));
 //        System.out.println(Arrays.toString(reverse(new int[]{1, 2, 3, 4, 5, 6, 7})));
 //        System.out.println(contains(new int[]{1,2,3,4}, 2));
-//        System.out.println(index(new int[]{1,2,3,4,4,5},3));
+//        System.out.println(getIndexOfNumber(new int[]{1,2,3,4,4,5},3));
 //        System.out.println(occurrence(new int[]{1, 2, 3, 4, 5, 6, 6, 7, 6, 0}, 6));
 //        System.out.println(Arrays.toString(filterEvenNumbers(new int[]{0,1,2,3,4,5,6,7,8,9,10})));
 //        System.out.println(Arrays.toString(fillWith(new int[]{1,2,3,4,5},6)));
-//        System.out.println(isAscending(new int[]{1,2,3,4,3,6}));
+//        System.out.println(isAscending(new int[]{1,2,2,3,4}));
 //        System.out.println(Arrays.toString(merge(new int[]{1, 2, 3, 4}, new int[]{5, 6, 7, 4})));
 //        System.out.println(get2ndLargest(new int[]{7, 4, 8, 23, 12}));
 //        System.out.println(Arrays.toString(removeDuplications(new int[]{1, 1, 3, 4, 1, 3, 0, 0})));
