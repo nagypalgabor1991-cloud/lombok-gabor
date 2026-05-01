@@ -6,8 +6,8 @@ public class StringSmallExercises {
 
     public static int countOccurrenceOfB(String str) {
         int count = 0;
-        for (char i : str.toCharArray()) {
-            if (i == 'B') {
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == 'B') {
                 count++;
             }
         }
@@ -16,19 +16,11 @@ public class StringSmallExercises {
 
     public static int countOccurrenceOfHello(String str) {
         int count = 0;
-        while (str != null && str.length() >= 5) {
-            if (str.charAt(0) == 'h') {
-                if (str.charAt(1) == 'e') {
-                    if (str.charAt(2) == 'l') {
-                        if (str.charAt(3) == 'l') {
-                            if (str.charAt(4) == 'o') {
-                                count++;
-                            }
-                        }
-                    }
-                }
+        String lookingFor = "hello";
+        for (int i = 0; i <= str.length() - lookingFor.length(); i++) {
+            if (str.substring(i, i + lookingFor.length()).equals(lookingFor)) {
+                count++;
             }
-            str = str.substring(1);
         }
         return count;
     }

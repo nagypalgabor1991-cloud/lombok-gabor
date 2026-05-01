@@ -13,6 +13,7 @@ public class StringSmallExercisesTest {
     @Test
     @DisplayName("Should count occurence of 'Hello'")
     void shouldCountHello() {
+        assertEquals(0, StringSmallExercises.countOccurrenceOfHello(""));
         assertEquals(0, StringSmallExercises.countOccurrenceOfHello("lovely string"));
         assertEquals(4, StringSmallExercises.countOccurrenceOfHello("helloabcdhelloasvbhellogdvmhello"));
     }
