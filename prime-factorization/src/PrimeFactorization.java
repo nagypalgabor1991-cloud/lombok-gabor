@@ -11,7 +11,9 @@ public class PrimeFactorization {
 
     public static List<Integer> returnPrimeFactors(int number) {
         List<Integer> primeFactors = new ArrayList<>();
-        if (number <= 1) return primeFactors;
+        if (number <= 1) {
+            return primeFactors;
+        }
         if (isPrime(number)) {
             primeFactors.add(number);
             return primeFactors;
@@ -33,9 +35,15 @@ public class PrimeFactorization {
     }
 
     public static boolean isPrime(int number) {
-        if (number <= 1) return false;
-        if (number == 2) return true;
-        if (number % 2 == 0) return false;
+        if (number <= 1) {
+            return false;
+        }
+        if (number == 2) {
+            return true;
+        }
+        if (number % 2 == 0) {
+            return false;
+        }
         for (int i = 3; i <= Math.sqrt(number); i += 2) {
             if (number % i == 0) {
                 return false;
@@ -46,7 +54,11 @@ public class PrimeFactorization {
 
     public static List<Integer> listPrimesBelowSquareRoot(int number) {
         List<Integer> possibleFactors = new ArrayList<>();
-        for (int i = 2; i <= Math.sqrt(number); i++) {
+        if (number >= 2) {
+            possibleFactors.add(2);
+        }
+        int limit = (int) Math.sqrt(number);
+        for (int i = 3; i <= limit; i += 2) {
             if (isPrime(i)) {
                 possibleFactors.add(i);
             }
