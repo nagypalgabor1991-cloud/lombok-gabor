@@ -36,7 +36,7 @@ public class EmployeeAnalyzer {
     }
 
     public List<Employee> getEmployeesWithHighestTotalHours() {
-        List<Employee> mvps = new ArrayList<>();
+        List<Employee> topEmployees = new ArrayList<>();
         int maxHours = 0;
         for (Employee emp : this.employees) {
             if (emp.getTotalWeeklyHours() > maxHours) {
@@ -45,15 +45,15 @@ public class EmployeeAnalyzer {
         }
         for (Employee emp : this.employees) {
             if (emp.getTotalWeeklyHours() == maxHours) {
-                mvps.add(emp);
+                topEmployees.add(emp);
             }
         }
-        return mvps;
+        return topEmployees;
     }
 
     public List<Employee> getEmployeeWithHighestTotalHours(String department) {
         List<Employee> departmentEmployees = getEmployeesByDepartment(department);
-        List<Employee> mvps = new ArrayList<>();
+        List<Employee> topEmployees = new ArrayList<>();
         int maxHours = 0;
         for (Employee emp : departmentEmployees) {
             if (emp.getTotalWeeklyHours() > maxHours) {
@@ -62,9 +62,9 @@ public class EmployeeAnalyzer {
         }
         for (Employee emp : departmentEmployees) {
             if (emp.getTotalWeeklyHours() == maxHours) {
-                mvps.add(emp);
+                topEmployees.add(emp);
             }
         }
-        return mvps;
+        return topEmployees;
     }
 }

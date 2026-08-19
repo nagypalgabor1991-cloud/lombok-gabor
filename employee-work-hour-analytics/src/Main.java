@@ -24,17 +24,17 @@ public class Main {
         double itAverage = department.getAverageWeeklyHours("IT");
         System.out.printf(Locale.US, "%nIT department weekly average: %.2f hours%n", itAverage);
 
-        List<Employee> mvps = analyzer.getEmployeesWithHighestTotalHours();
-        List<String> mvpNames = new ArrayList<>();
-        for (Employee employee : mvps) {
-            mvpNames.add(employee.getName());
+        List<Employee> employeesWithHighestTotalHours = analyzer.getEmployeesWithHighestTotalHours();
+        List<String> nameOfEmployeesWithHighestTotalHours = new ArrayList<>();
+        for (Employee employee : employeesWithHighestTotalHours) {
+            nameOfEmployeesWithHighestTotalHours.add(employee.getName());
         }
-        System.out.printf("%nEmployee with highest total hours globally is: %s%n", mvpNames);
+        System.out.printf("%nEmployee with highest total hours globally is: %s%n", nameOfEmployeesWithHighestTotalHours);
 
 
-        List<Employee> itMvps = analyzer.getEmployeeWithHighestTotalHours("IT");
+        List<Employee> itEmployeesWithHighestTotalHours = analyzer.getEmployeeWithHighestTotalHours("IT");
         List<String> names = new ArrayList<>();
-        for (Employee employee : itMvps) {
+        for (Employee employee : itEmployeesWithHighestTotalHours) {
             names.add(employee.getName());
         }
         System.out.printf("%nEmployee with highest total hours in IT: %s%n", names);

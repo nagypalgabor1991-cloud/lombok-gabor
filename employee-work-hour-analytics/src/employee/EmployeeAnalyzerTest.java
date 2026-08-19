@@ -37,21 +37,21 @@ public class EmployeeAnalyzerTest {
     @Test
     void shouldReturnEmployeesWithHighestTotalHours() {
         //given, when
-        List<Employee> mvp = analyzer.getEmployeesWithHighestTotalHours();
+        List<Employee> topEmployees = analyzer.getEmployeesWithHighestTotalHours();
         List<Employee> expected = new ArrayList<>();
         expected.add(testEmployees.get(3));
         //then
-        assertEquals(mvp, expected);
+        assertEquals(topEmployees, expected);
     }
 
     @Test
     void shouldReturnEmployeesWithHighestTotalHoursAtDepartment() {
         //given, when
-        List<Employee> mvp = analyzer.getEmployeeWithHighestTotalHours("IT");
+        List<Employee> topEmployees = analyzer.getEmployeeWithHighestTotalHours("IT");
         List<Employee> expected = new ArrayList<>();
         expected.add(testEmployees.get(0));
         //then
-        assertEquals(mvp, expected);
+        assertEquals(topEmployees, expected);
     }
 }
 
