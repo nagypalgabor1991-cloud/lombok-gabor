@@ -13,11 +13,11 @@ public class RecamanSequence {
         List<Integer> visited = new ArrayList<>();
         recamanSequence[0] = 0;
         visited.add(0);
-        getRecamanSequence(1, input, recamanSequence, visited);
+        fillRecamanSequence(1, input, recamanSequence, visited);
         return recamanSequence;
     }
 
-    private static void getRecamanSequence(int index, int max, int[] recamanSequence, List<Integer> visited) {
+    private static void fillRecamanSequence(int index, int max, int[] recamanSequence, List<Integer> visited) {
         if (index > max) {
             return;
         }
@@ -31,7 +31,7 @@ public class RecamanSequence {
             recamanSequence[index] = temp;
             visited.add(temp);
         }
-        getRecamanSequence(index + 1, max, recamanSequence, visited);
+        fillRecamanSequence(index + 1, max, recamanSequence, visited);
     }
 
 
