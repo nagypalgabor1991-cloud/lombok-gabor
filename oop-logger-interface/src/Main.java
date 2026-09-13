@@ -4,8 +4,9 @@ public class Main {
         Logger fileLogger = new FileLogger("output.log");
 
         consoleLogger.log("Test message to the console.");
-        fileLogger.log("First test message to the file.");
-        fileLogger.log("Second test message to the file.");
-        fileLogger.log("Third test message to the file.");
+
+        fileLogger.log(LogLevel.INFO, "Test message to the file.");
+        fileLogger.log(LogLevel.WARN, "Something might be wrong.");
+        fileLogger.log(LogLevel.ERROR, "Critical error occurred in the system!");
     }
 }

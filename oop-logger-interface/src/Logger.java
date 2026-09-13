@@ -1,3 +1,7 @@
 public interface Logger {
-    void log(String message);
+    void log(LogLevel level, String message);
+
+    default void log(String message) {
+        log(LogLevel.INFO, message);
+    }
 }
