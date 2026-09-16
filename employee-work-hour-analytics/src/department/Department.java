@@ -2,6 +2,7 @@ package department;
 
 import employee.Employee;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Department {
@@ -13,18 +14,19 @@ public class Department {
     }
 
     public double getAverageWeeklyHours(String department) {
-        double totalHours = 0;
-        int employeeCount = 0;
-
-        for (Employee employee : this.employees) {
-            if (employee.getDepartment().equalsIgnoreCase(department)) {
-                totalHours += employee.getTotalWeeklyHours();
-                employeeCount++;
+        List<Employee> deptEmployees = new ArrayList<>();
+        for (Employee emp : this.employees) {
+            if (emp.getDepartment().equalsIgnoreCase(department)) {
+                deptEmployees.add(emp);
             }
         }
-        if (employeeCount == 0) {
+        if (deptEmployees.isEmpty()) {
             return 0.0;
         }
-        return totalHours / employeeCount;
+        double totalHours = 0;
+        for (Employee emp : deptEmployees) {
+            totalHours += emp.getTotalWeeklyHours();
+        }
+        return totalHours / deptEmployees.size();
     }
 }

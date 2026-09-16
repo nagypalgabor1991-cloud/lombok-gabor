@@ -56,12 +56,13 @@ public class EmployeeAnalyzer {
         List<Employee> topEmployees = new ArrayList<>();
         int maxHours = 0;
         for (Employee emp : departmentEmployees) {
-            if (emp.getTotalWeeklyHours() > maxHours) {
-                maxHours = emp.getTotalWeeklyHours();
-            }
-        }
-        for (Employee emp : departmentEmployees) {
-            if (emp.getTotalWeeklyHours() == maxHours) {
+            int currentHours = emp.getTotalWeeklyHours();
+
+            if (currentHours > maxHours) {
+                maxHours = currentHours;
+                topEmployees.clear();
+                topEmployees.add(emp);
+            } else if (currentHours == maxHours && maxHours > 0) {
                 topEmployees.add(emp);
             }
         }
