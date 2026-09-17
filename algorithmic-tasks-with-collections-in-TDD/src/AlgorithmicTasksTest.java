@@ -64,9 +64,9 @@ public class AlgorithmicTasksTest {
         var first = List.of(1, 2, 2, 1, 1);
         var second = List.of(1, 3, 4);
         //when
-        Set<Integer> actual = AlgorithmicTasks.getUnion(first, second);
+        List<Integer> actual = AlgorithmicTasks.getUnion(first, second);
         //then
-        assertEquals(actual, Set.of(1, 2, 3, 4));
+        assertEquals(actual, List.of(1, 2, 3, 4));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class AlgorithmicTasksTest {
         expected.put(2, 3);
         expected.put(3, 1);
         //when
-        var result = AlgorithmicTasks.countFrequency(values);
+        var result = AlgorithmicTasks.getFrequency(values);
         //then
         assertEquals(expected, result);
     }
