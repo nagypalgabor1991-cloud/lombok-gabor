@@ -39,21 +39,18 @@ public class AlgorithmicTasks {
             return first == null && second == null;
         }
 
-        Map<Character, Integer> firstWordFrequency = generateFrequencyMap(first);
-        Map<Character, Integer> secondWordFrequency = generateFrequencyMap(second);
+        Map<Character, Integer> firstWordFrequency = getFrequency(first);
+        Map<Character, Integer> secondWordFrequency = getFrequency(second);
 
         return firstWordFrequency.equals(secondWordFrequency);
     }
 
-    private static Map<Character, Integer> generateFrequencyMap(String word) {
+    public static Map<Character, Integer> getFrequency(String input) {
         Map<Character, Integer> frequency = new HashMap<>();
-        for (int i = 0; i < word.length(); i++) {
-            char actualCharacter = word.charAt(i);
-            if (!frequency.containsKey(actualCharacter)) {
-                frequency.put(actualCharacter, 1);
-            } else {
-                frequency.put(actualCharacter, frequency.get(actualCharacter) + 1);
-            }
+        if (input == null) return frequency;
+
+        for (char c : input.toCharArray()) {
+            frequency.put(c, frequency.getOrDefault(c, 0) + 1);
         }
         return frequency;
     }
@@ -63,27 +60,26 @@ public class AlgorithmicTasks {
     lists, but each element can occur only once.
     Input: [1, 2, 2, 1, 1],[1, 3, 4]  → Output: [1,2,3,4] (the order does not matter)
     */
-    public static Set<Integer> getUnion(List<Integer> first, List<Integer> second) {
+    public static List<Integer> getUnion(List<Integer> first, List<Integer> second) {
         Set<Integer> result = new HashSet<>();
         result.addAll(first);
         result.addAll(second);
-        return result;
+        return new ArrayList<>(result);
     }
 
     /*
     4. Counts the frequency of elements in a List of numbers
     Input: [1, 2, 2, 3, 1] → Output: {1=2, 2=2, 3=1}
     */
-    public static Map<Integer, Integer> countFrequency(List<Integer> input) {
-        Map<Integer, Integer> frequency = new HashMap<>();
-        for (int value : input) {
-            if (!frequency.containsKey(value)) {
-                frequency.put(value, 1);
-            } else {
-                frequency.put(value, frequency.get(value) + 1);
-            }
+    public static <T> Map<T, Integer> getFrequency(Iterable<T> items) {
+        Map<T, Integer> frequencyMap = new HashMap<>();
+        if (items == null) {
+            return frequencyMap;
         }
-        return frequency;
+        for (T item : items) {
+            frequencyMap.put(item, frequencyMap.getOrDefault(item, 0) + 1);
+        }
+        return frequencyMap;
     }
 
     /*
@@ -108,9 +104,26 @@ public class AlgorithmicTasks {
     */
     public static List<Integer> merge(List<Integer> first, List<Integer> second) {
         List<Integer> result = new ArrayList<>();
-        result.addAll(first);
-        result.addAll(second);
-        return result.stream().sorted().toList();
+        int pointer1 = 0;
+        int pointer2 = 0;
+        while (pointer1 < first.size() && pointer2 < second.size()) {
+            if (first.get(pointer1) <= second.get(pointer2)) {
+                result.add(first.get(pointer1));
+                pointer1++;
+            } else {
+                result.add(second.get(pointer2));
+                pointer2++;
+            }
+        }
+        while (pointer1 < first.size()) {
+            result.add(first.get(pointer1));
+            pointer1++;
+        }
+        while (pointer2 < second.size()) {
+            result.add(second.get(pointer2));
+            pointer2++;
+        }
+        return result;
     }
 
     /*
@@ -142,14 +155,7 @@ public class AlgorithmicTasks {
     public static String getMostFrequentWord(String text) {
         String lowerCaseText = text.toLowerCase();
         String[] words = lowerCaseText.split(" ");
-        Map<String, Integer> frequency = new HashMap<>();
-        for (String word : words) {
-            if (!frequency.containsKey(word)) {
-                frequency.put(word, 1);
-            } else {
-                frequency.put(word, frequency.get(word) + 1);
-            }
-        }
+        Map<String, Integer> frequency = getFrequency(Arrays.asList(words));
         int maxFrequency = 0;
         String mostFrequentWord = "";
         for (Map.Entry<String, Integer> entrySet : frequency.entrySet()) {
@@ -183,14 +189,7 @@ public class AlgorithmicTasks {
     */
     public static Set<Integer> getSingleElements(List<Integer> numbers) {
         Set<Integer> result = new HashSet<>();
-        Map<Integer, Integer> frequency = new HashMap<>();
-        for (int number : numbers) {
-            if (!frequency.containsKey(number)) {
-                frequency.put(number, 1);
-            } else {
-                frequency.put(number, frequency.get(number) + 1);
-            }
-        }
+        Map<Integer, Integer> frequency = getFrequency(numbers);
         for (Map.Entry<Integer, Integer> entrySet : frequency.entrySet()) {
             if (entrySet.getValue() == 1) {
                 result.add(entrySet.getKey());
@@ -237,18 +236,10 @@ public class AlgorithmicTasks {
     Input: "aabbbcdd" → Output: 'b'
     */
     public static char getMostFrequentCharacter(String input) {
-        Map<Character, Integer> characterFrequencies = new HashMap<>();
-        for (int i = 0; i < input.length(); i++) {
-            char key = input.charAt(i);
-            if (!characterFrequencies.containsKey(key)) {
-                characterFrequencies.put(key, 1);
-            } else {
-                characterFrequencies.put(key, characterFrequencies.get(key) + 1);
-            }
-        }
+        Map<Character, Integer> frequencies = getFrequency(input);
         int occurance = 0;
         char mostFrequentChar = '\u0000';
-        for (Map.Entry<Character, Integer> entrySet : characterFrequencies.entrySet()) {
+        for (Map.Entry<Character, Integer> entrySet : frequencies.entrySet()) {
             if (entrySet.getValue() > occurance) {
                 occurance = entrySet.getValue();
                 mostFrequentChar = entrySet.getKey();
@@ -290,21 +281,26 @@ public class AlgorithmicTasks {
    Input: "aabcbcdbca" Output: 4 Explanation: The smallest substring containing all unique characters is "dbca"
    */
     public static int getLengthOfSmallestUniqueSubstring(String input) {
-        Set<Character> allUniqueChars = new HashSet<>();
+        Set<Character> uniqueChars = new HashSet<>();
         for (char c : input.toCharArray()) {
-            allUniqueChars.add(c);
+            uniqueChars.add(c);
         }
-        int numberOfUniqueChars = allUniqueChars.size();
+        int totalUniqueCount = uniqueChars.size();
+        Map<Character, Integer> windowCounts = new HashMap<>();
+        int left = 0;
         int minLength = Integer.MAX_VALUE;
-        for (int i = 0; i < input.length(); i++) {
-            Set<Character> currentChars = new HashSet<>();
-            for (int j = i; j < input.length(); j++) {
-                currentChars.add(input.charAt(j));
-                if (currentChars.size() == numberOfUniqueChars) {
-                    int currentLength = j - i + 1;
-                    minLength = Math.min(minLength, currentLength);
-                    break;
+        for (int right = 0; right < input.length(); right++) {
+            char rightChar = input.charAt(right);
+            windowCounts.put(rightChar, windowCounts.getOrDefault(rightChar, 0) + 1);
+            while (windowCounts.size() == totalUniqueCount) {
+                int currentLength = right - left + 1;
+                minLength = Math.min(minLength, currentLength);
+                char leftChar = input.charAt(left);
+                windowCounts.put(leftChar, windowCounts.get(leftChar) - 1);
+                if (windowCounts.get(leftChar) == 0) {
+                    windowCounts.remove(leftChar);
                 }
+                left++;
             }
         }
         return minLength == Integer.MAX_VALUE ? 0 : minLength;
@@ -367,14 +363,7 @@ public class AlgorithmicTasks {
     Output: "apple"
     */
     public static String getMostFrequentWord(List<String> words) {
-        Map<String, Integer> frequency = new HashMap<>();
-        for (String word : words) {
-            if (frequency.containsKey(word)) {
-                frequency.put(word, frequency.get(word) + 1);
-            } else {
-                frequency.put(word, 1);
-            }
-        }
+        Map<String, Integer> frequency = getFrequency(words);
         int occurrence = 0;
         String mostFrequentWord = "";
         for (Map.Entry<String, Integer> entrySet : frequency.entrySet()) {
@@ -431,15 +420,7 @@ public class AlgorithmicTasks {
     Output: 3 (change 2 b’s and 1 c to a)
     */
     public static int minChangesToUniformStrings(String input) {
-        Map<Character, Integer> frequency = new HashMap<>();
-        for (int i = 0; i < input.length(); i++) {
-            char currentCharacter = input.charAt(i);
-            if (frequency.containsKey(currentCharacter)) {
-                frequency.put(currentCharacter, frequency.get(currentCharacter) + 1);
-            } else {
-                frequency.put(currentCharacter, 1);
-            }
-        }
+        Map<Character, Integer> frequency = getFrequency(input);
         int topOccurrence = 0;
         for (Map.Entry<Character, Integer> entrySet : frequency.entrySet()) {
             if (entrySet.getValue() > topOccurrence) {
@@ -455,14 +436,7 @@ public class AlgorithmicTasks {
     Output: [1, 3, 5]
     */
     public static List<Integer> getUniqueElements(List<Integer> numbers) {
-        Map<Integer, Integer> frequency = new HashMap<>();
-        for (int number : numbers) {
-            if (frequency.containsKey(number)) {
-                frequency.put(number, frequency.get(number) + 1);
-            } else {
-                frequency.put(number, 1);
-            }
-        }
+        Map<Integer, Integer> frequency = getFrequency(numbers);
         List<Integer> uniqueNumbers = new ArrayList<>();
         for (Map.Entry<Integer, Integer> entrySet : frequency.entrySet()) {
             if (entrySet.getValue() == 1) {
@@ -477,17 +451,6 @@ public class AlgorithmicTasks {
     Input: [1, 2, 2, 3, 3, 3]
     Output: {1=[1], 2=[2], 3=[3]}
     */
-    public static Map<Integer, Integer> getFrequency(List<Integer> numbers) {
-        Map<Integer, Integer> frequency = new HashMap<>();
-        for (Integer number : numbers) {
-            if (frequency.containsKey(number)) {
-                frequency.put(number, frequency.get(number) + 1);
-            } else {
-                frequency.put(number, 1);
-            }
-        }
-        return frequency;
-    }
 
     /*
     24. Given a map of String → Integer, creates a new map of Integer → List<String> (invert the mapping).
